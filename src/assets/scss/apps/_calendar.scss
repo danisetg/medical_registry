@@ -1,0 +1,95 @@
+/*
+ *  Document   : _calendar.scss
+ *  Author     : RedStar Template
+ *  Description: This scss file for style related to calendar app
+ */
+
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+
+#wrap {
+  width: 100%;
+  margin: 0 auto;
+}
+#external-events {
+  float: left;
+  width: 100%;
+  text-align: left;
+  h4 {
+    font-size: 16px;
+    margin-top: 0;
+    padding-top: 1em;
+  }
+  .fc-event {
+    margin: 10px 0;
+    cursor: pointer;
+    padding: 5px;
+  }
+  p {
+    margin: 1.5em 0;
+    font-size: 11px;
+    color: #666;
+    input {
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+  .material-icons {
+    color: #fff;
+    font-size: 16px;
+  }
+}
+#event_title {
+  font-size: 13px;
+}
+#calendar {
+  float: right;
+  width: 100%;
+}
+.fc-event {
+  border: 0px !important;
+}
+.fc-state-active {
+  background: #a389d4 !important;
+  color: #fff;
+}
+.fc-day-grid-event {
+  // background-color: #49cdd0 !important;
+  color: white !important;
+  padding: 5px;
+  text-align: center;
+}
+.label-event-meeting {
+  background: linear-gradient(45deg, #9ce89d, #cdfa7e) !important;
+}
+.label-event-holiday {
+  background: linear-gradient(45deg, #a890d3, #edbae7) !important;
+}
+.label-event-birthday {
+  background: linear-gradient(45deg, #fda582, #f7cf68) !important;
+}
+.label-event-competition {
+  background: linear-gradient(45deg, #72c2ff, #86f0ff) !important;
+}
+.label-event-dinner {
+  background: linear-gradient(45deg, #9ce89d, #cdfa7e) !important;
+}
+.label-event-party {
+  background: linear-gradient(45deg, #a890d3, #edbae7) !important;
+}
+.label-event-Untitled {
+  background: linear-gradient(45deg, #fda582, #f7cf68) !important;
+}
+.fc-content-skeleton thead {
+  border-bottom: none;
+}
+.fc-state-default {
+  border: 1px solid #eee;
+  background: transparent !important;
+  color: #7e869d;
+  border-radius: 0;
+}
+.fc-state-active {
+  background: #a389d4 !important;
+  color: #fff;
+}

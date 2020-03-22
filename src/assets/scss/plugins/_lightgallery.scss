@@ -1,0 +1,14 @@
+/*
+ *  Document   : _lightgallery.scss
+ *  Author     : RedStar Template
+ *  Description: This scss file for light gallery style classes
+ */
+.lg-outer {
+  .lg-thumb-item,
+  .lg-toogle-thumb {
+    @include border-radius(0 !important);
+  }
+}
+#aniimated-thumbnials img{
+  width: 100%;
+}
