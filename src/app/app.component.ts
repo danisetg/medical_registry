@@ -7,6 +7,7 @@ import {
   RouterEvent
 } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
+import { Web3Service } from './shared/services/web3.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +16,8 @@ import { PlatformLocation } from '@angular/common';
 export class AppComponent {
   currentUrl: string;
   showLoadingIndicatior = true;
-  constructor(public _router: Router, location: PlatformLocation) {
+  constructor(public _router: Router, location: PlatformLocation, 
+              public web3Service: Web3Service) {
     this._router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
         this.showLoadingIndicatior = true;

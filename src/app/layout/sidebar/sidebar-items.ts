@@ -1,21 +1,20 @@
 import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
   {
-    path: '',
+    path: '/dashboard',
     title: 'Home',
     icon: 'fas fa-home',
-    class: 'menu-toggle',
+    class: '',
     groupTitle: false,
-    submenu: [
-      {
-        path: '/dashboard/main',
-        title: 'Dashboard 1',
-        icon: '',
-        class: 'ml-menu',
-        groupTitle: false,
-        submenu: []
-      }
-    ]
+    submenu: []
+  },
+  {
+    path: '/doctors',
+    title: 'Doctors',
+    icon: 'fas fa-user-md',
+    class: '',
+    groupTitle: false,
+    submenu: []
   },
 
   {

@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { DoctorService } from 'src/app/shared/services/doctor.service';
+import { PatientService } from 'src/app/shared/services/patient.service';
+import { Doctor } from 'src/app/shared/models/doctor.model';
 declare const $: any;
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.sass']
 })
-export class MainComponent implements OnInit {
-  constructor() {}
+export class DashboardComponent implements OnInit {
+  public doctors: Doctor[] = [];
+  constructor(public doctorService: DoctorService,
+              public patientService: PatientService) {}
   // area chart start
   public areaChartOptions = {
     responsive: true,
@@ -149,6 +154,19 @@ export class MainComponent implements OnInit {
   ];
   // end bar chart
   ngOnInit() {
+    setTimeout(() => {
+      this.doctorService.list(this.doctorService.account).subscribe(accounts => {
+        accounts.forEach(account => {
+          this.doctorService.getDoctorByAddress(account, this.doctorService.account).subscribe(doctor => {
+            this.doctors.push(doctor);
+            console.log(doctor);
+          });
+        });
+      });
+    }, 2000);
+  }
+
+  setSparkLine(){
     $('#sparkline').sparkline([5, 6, 7, 2, 0, -4, -2, 4], {
       type: 'bar'
     });

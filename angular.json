@@ -33,7 +33,8 @@
               "node_modules/angular-archwizard/archwizard.css",
               "src/assets/scss/style.scss",
               "src/assets/scss/theme/all-themes.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "src/assets/js/app.min.js",
