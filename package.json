@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +48,7 @@
     "browser-sync": "^2.26.7",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
+    "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "^2.6.1",
@@ -76,6 +78,7 @@
     "node-sass": "^4.13.1",
     "node-waves": "^0.7.6",
     "owl.carousel": "^2.3.4",
+    "path": "^0.12.7",
     "popper.js": "^1.16.1",
     "raphael": "^2.3.0",
     "rxjs": "^6.5.4",
@@ -116,5 +119,9 @@
     "ts-node": "~8.6.2",
     "tslint": "~6.0.0",
     "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": "10.16.1",
+      "npm": "6.13.4"
   }
 }
