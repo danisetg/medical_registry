@@ -1,0 +1,130 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">My Profile</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a routerLink="/dashboard/main">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">My Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>Edit Doctor</h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="#" onClick="return false;" data-toggle="dropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <a href="#" onClick="return false;">Action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" onClick="return false;">Another action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" onClick="return false;">Something else here</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                                <img [src]="profile.imageUrl" class="img-circle user-img-circle">
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                                <form class="m-4" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm.value)">
+
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput name="name" #name="ngModel" [ngModel]="profile.name" required>
+                                        <mat-icon matSuffix>face</mat-icon>
+                                        <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                                            Name is required
+                                        </mat-error>
+                                    </mat-form-field>
+                            
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Doctor Id</mat-label>
+                                        <input matInput name="idCard" #idCard="ngModel" [ngModel]="profile.idCard"
+                                            required>
+                                        <mat-icon matSuffix>credit_card</mat-icon>
+                                        <mat-error *ngIf="idCard.invalid && (idCard.dirty || idCard.touched)">
+                                            Doctor Id is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Specialization</mat-label>
+                                        <input matInput name="specialization" #specialization="ngModel"
+                                            [ngModel]="profile.specialization" required>
+                                        <mat-icon matSuffix>device_hub</mat-icon>
+                                        <mat-error
+                                            *ngIf="specialization.invalid && (specialization.dirty || specialization.touched)">
+                                            Specialization is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput name="email" #email="ngModel" type="email"
+                                            [ngModel]="profile.email" required>
+                                        <mat-icon matSuffix>email</mat-icon>
+                                        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                                            Email is required
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Password</mat-label>
+                                        <input matInput name="password" #password="ngModel" ngModel
+                                            [type]="hide ? 'password' : 'text'" required>
+                                        <mat-icon matSuffix (click)="hide = !hide">
+                                            {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+                                            Password is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Confirm Password</mat-label>
+                                        <input matInput name="cpassword" #cpassword="ngModel" ngModel
+                                            [type]="chide ? 'password' : 'text'" required>
+                                        <mat-icon matSuffix (click)="chide = !chide">
+                                            {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        <mat-error *ngIf="cpassword.invalid && (cpassword.dirty || cpassword.touched)">
+                                            Confirm Password is required
+                                        </mat-error>
+                                        <mat-error
+                                            *ngIf="cpassword.value != password.value && (cpassword.dirty || cpassword.touched)">
+                                            Passwords are different
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                            <button class="mr-3" [disabled]="!profileForm.valid " mat-raised-button
+                                                color="primary">Submit</button>
+                                            <button type="button" mat-button>Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

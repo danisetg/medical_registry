@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -39,11 +39,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartsModule as chartjsModule } from 'ng2-charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { MorrisJsModule } from 'angular-morris-js';
-import { DoctorsListComponent } from './doctors/doctors-list/doctors-list.component';
-import { DoctorsCreateComponent } from './doctors/doctors-create/doctors-create.component';
-import { DoctorsUpdateComponent } from './doctors/doctors-update/doctors-update.component';
-import { DoctorsFormComponent } from './doctors/doctors-form/doctors-form.component';
-import { DoctorsShowComponent } from './doctors/doctors-show/doctors-show.component';
+import { Web3Service } from './shared/services/web3.service';
+
+export function configServiceFactory(config: Web3Service) {
+  return () => config.createWeb3();
+}
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -57,11 +58,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SidebarComponent,
     RightSidebarComponent,
     DashboardComponent,
-    DoctorsListComponent,
-    DoctorsCreateComponent,
-    DoctorsUpdateComponent,
-    DoctorsFormComponent,
-    DoctorsShowComponent
   ],
   imports: [
     BrowserModule,
@@ -101,9 +97,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MorrisJsModule,
     PerfectScrollbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
+    Web3Service,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configServiceFactory,
+      deps: [Web3Service],
+      multi: true
+    },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

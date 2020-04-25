@@ -1,1 +1,71 @@
-<p>doctors-show works!</p>
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Doctor Profile</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/dashboard/main">
+                <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Doctor</a>
+            </li>
+            <li class="breadcrumb-item active" *ngIf="doctor">{{doctor.name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="doctor">
+      <div class="col-lg-4 col-md-12">
+        <div class="card">
+          <div class="contact-grid profile-image">
+            <img src="{{doctor.imageUrl}}" alt="">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="card">
+          <div class="header">
+            <h2>About Doctor</h2>
+          </div>
+          <div class="tab-pane body active" id="about">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Name: </small>
+                <p>{{doctor.name}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Specialization: </small>
+                <p>{{doctor.specialization}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Email: </small>
+                <p>{{doctor.email}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Joining Date: </small>
+                <p>{{doctor.joiningDate | date: "shortDate"}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Id Card: </small>
+                <p>{{doctor.idCard}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

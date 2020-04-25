@@ -155,15 +155,16 @@ export class DashboardComponent implements OnInit {
   // end bar chart
   ngOnInit() {
     setTimeout(() => {
-      this.doctorService.list(this.doctorService.account).subscribe(accounts => {
+      this.doctorService.list().subscribe(accounts => {
         accounts.forEach(account => {
-          this.doctorService.getDoctorByAddress(account, this.doctorService.account).subscribe(doctor => {
+          this.doctorService.getByAddress(account).subscribe(doctor => {
             this.doctors.push(doctor);
             console.log(doctor);
           });
         });
       });
     }, 2000);
+    
   }
 
   setSparkLine(){

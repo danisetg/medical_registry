@@ -6,14 +6,6 @@
           Register
         </span>
         <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Adress</mat-label>
-          <input matInput name="address" disabled  #address="ngModel" [ngModel]="doctorService.account" required>
-          <mat-icon matSuffix>description</mat-icon>
-          <mat-error *ngIf="address.invalid && (address.dirty || address.touched)">
-            Adress is required
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Name</mat-label>
           <input matInput name="name" #name="ngModel" ngModel required>
           <mat-icon matSuffix>face</mat-icon>
@@ -27,6 +19,22 @@
           <mat-icon matSuffix>credit_card</mat-icon>
           <mat-error *ngIf="idCard.invalid && (idCard.dirty || idCard.touched)">
             Doctor Id is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Specialization</mat-label>
+          <input matInput name="specialization" #specialization="ngModel" ngModel required>
+          <mat-icon matSuffix>device_hub</mat-icon>
+          <mat-error *ngIf="specialization.invalid && (specialization.dirty || specialization.touched)">
+            Specialization is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput name="email" #email="ngModel" type="email" ngModel required>
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            Email is required
           </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="outline">
@@ -64,7 +72,7 @@
           </button>
         </div>
       </form>
-      <div class="login100-more" style="background-image: url('assets/images/pages/bg-02.png');">
+      <div class="login100-more" style="background-image: url('assets/images/logolazo.png');">
       </div>
     </div>
   </div>

@@ -18,3 +18,17 @@
     border-top-color: #000000;
     animation: spinner .8s linear infinite;
   }
+  .cdk-overlay-container, .cdk-overlay-pane {
+    z-index: 99999999 !important;
+}
+.mat-select-menu-container {
+  z-index: 99999 !important;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  z-index: 99999 !important;
+}
+
+.mat-dialog-container {
+  overflow: hidden !important;
+}

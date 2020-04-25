@@ -9,12 +9,14 @@
                 <li class="sidebar-user-panel">
                     <div class="user-panel">
                         <div class=" image">
-                            <img src="assets/images/usrbig.jpg" class="img-circle user-img-circle" alt="User Image" />
+                            <img src="{{userService.profile.imageUrl}}" class="img-circle user-img-circle" alt="User Image" />
                         </div>
                     </div>
                     <div class="profile-usertitle">
-                        <div class="sidebar-userpic-name font-weight-bold">DR. Emily Smith </div>
-                        <div class="profile-usertitle-job ">Director </div>
+                        <div class="sidebar-userpic-name font-weight-bold">
+                            {{userService.role == 'doctor'? 'Dr. ': ''}} {{userService.profile.name}} 
+                        </div>
+                        <div class="profile-usertitle-job ">{{userService.role == 'doctor'? userService.profile.specialization: ''}} </div>
                     </div>
                 </li>
                 <!-- First level menu -->

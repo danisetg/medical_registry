@@ -1,0 +1,96 @@
+<form class="m-4" #diagnosisForm="ngForm" (ngSubmit)="onSubmit(diagnosisForm.value)">
+  <div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Weight (Kg)</mat-label>
+        <input matInput name="weight" type="number" #weight="ngModel" [ngModel]="diagnosis.weight" required />
+        <mat-error *ngIf="weight.invalid && (weight.dirty || weight.touched)">
+          Weight is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Height (cm)</mat-label>
+        <input matInput name="height" type="number" #height="ngModel" [ngModel]="diagnosis.height" required />
+        <mat-error *ngIf="height.invalid && (height.dirty || height.touched)">
+          Height is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>
+            <strong>Description</strong>
+          </h2>
+        </div>
+        <div class="body">
+          <ckeditor [editor]="Editor" name="description" #description="ngModel" [ngModel]="diagnosis.description || ''">
+
+          </ckeditor>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>
+            <strong>Observations</strong>
+          </h2>
+        </div>
+        <div class="body">
+          <ckeditor [editor]="Editor" name="observations" #observations="ngModel"
+            [ngModel]="diagnosis.observations || ''">
+          </ckeditor>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>
+            <strong>Files</strong>
+          </h2>
+        </div>
+        <div class="body">
+          <div class="row">
+            <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+              <mat-icon>file_upload</mat-icon>
+              Upload Files
+            </button>
+            <input type="file" #fileInput id="fileUpload" name="fileUpload" multiple="multiple"
+              (change)="loadFile($event.target.files)" style="display: none;" />
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <mat-chip-list #chipList aria-label="Fruit selection">
+              <mat-chip *ngFor="let file of diagnosis.hashFile; let i = index"  [removable]="true"
+                  (removed)="cancelFile(i)">
+                  {{file.name}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+          </mat-chip-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+      <button class="mr-3" [disabled]="!diagnosisForm.valid || loading" mat-raised-button color="primary"
+        [class.spinner]="loading">
+        Submit
+      </button>
+      <button type="button" mat-button>Cancel</button>
+    </div>
+  </div>
+</form>

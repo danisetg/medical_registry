@@ -6,7 +6,7 @@
             <a href="#" onClick="return false;" class="bars" (click)="mobileMenuSidebarOpen($event,'overlay-open')"></a>
             <a class="navbar-brand" routerLink="dashboard/main">
                 <img src="assets/images/logo.png" alt="" />
-                <span class="logo-name">Cliniva</span>
+                <span class="logo-name">DOKI</span>
             </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -60,13 +60,13 @@
                 <!-- #END# Notifications-->
                 <li class="dropdown user_profile">
                     <a href="#" onClick="return false;" data-toggle="dropdown" role="button" class="pt-0">
-                        <img src="assets/images/user.jpg" class="rounded-circle" width="32" height="32" alt="User">
+                        <img src="{{userService.profile.imageUrl}}" class="rounded-circle" width="32" height="32" alt="User">
                     </a>
                     <ul class="dropdown-menu pullDown">
                         <li class="body">
                             <ul class="user_dw_menu">
                                 <li>
-                                    <a href="#" onClick="return false;">
+                                    <a routerLink="{{userService.role == 'doctor'? '/doctors/profile': 'patients/profile'}}" onClick="return false;">
                                         <mat-icon aria-hidden="false" class="mr-2">person</mat-icon>Profile
                                     </a>
                                 </li>

@@ -1,0 +1,18 @@
+<div class="container">
+    <h3 mat-dialog-title>QR Scanner</h3>
+    <div mat-dialog-content>
+        <mat-form-field *ngIf="cameras.length">
+            <mat-label>Select Camera</mat-label>
+            <mat-select required>
+              <mat-option *ngFor="let camera of cameras" [value]="camera.deviceId" (click)="selectCamera(camera)">{{camera.label}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <zxing-scanner
+            (camerasFound)="setCameras($event)"
+            [device]="selectedCamera"
+            (scanSuccess)="onScanned($event)"
+            [enable]="enable"
+        ></zxing-scanner>
+    </div>
+
+</div>

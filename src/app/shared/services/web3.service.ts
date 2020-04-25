@@ -28,19 +28,18 @@ export class Web3Service {
 
 
  constructor() {
-   // call createWeb3
-   this.createWeb3();
  }
 
  // this method is used to create web3 object with MetaMask provider
   // create a exhibition contract instance
-  public async createWeb3() {
+  public async createWeb3(): Promise<any> {
+      this.account = localStorage.getItem('account');
       // Checking if Web3 has been injected by the browser (MetaMask)
       if (typeof window.web3 !== "undefined") {
         // Use MetaMask's provider
         console.log(window.web3);
         this.web3Provider = window.web3.currentProvider;
-        this.web3 = new Web3(new Web3(this.web3Provider));
+        this.web3 = new Web3(this.web3Provider);
         console.log(this.web3);
         //create a exhibition contract instance
         this.contract = TruffleContract(tokenAbi);
@@ -53,9 +52,11 @@ export class Web3Service {
         this.enableAccounts().then(() => {
           this.refreshAccounts();
         });
+        return this.contract.deployed();
       } else {
         console.log("No web3? Please trying with MetaMask!");
       }
+      console.log(this.account);
   }
   private async enableAccounts() {
     if (window.ethereum) {

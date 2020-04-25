@@ -9,7 +9,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label>Account Address</mat-label>
-              <input matInput name="address" #address="ngModel" disabled [ngModel]="doctorService.account" required />
+              <input matInput name="address" #address="ngModel" disabled [ngModel]="doctorService.web3Service.account" required />
               <mat-icon matSuffix>description</mat-icon>
               <mat-error *ngIf="address.invalid && (address.dirty || address.touched)">
                 Address is required
@@ -71,7 +71,7 @@
           </span>
         </div>
       </form>
-      <div class="login100-more" style="background-image: url('assets/images/pages/bg-01.png');">
+      <div class="login100-more" style="background-image: url('assets/images/logolazo.png');">
       </div>
     </div>
   </div>

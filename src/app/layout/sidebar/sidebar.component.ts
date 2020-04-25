@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { IpfsService } from 'src/app/shared/services/ipfs.service';
 import {
   Component,
   Inject,
@@ -8,6 +9,7 @@ import {
   HostListener
 } from '@angular/core';
 import { ROUTES } from './sidebar-items';
+import { UserService } from 'src/app/shared/services/user.service';
 declare const Waves: any;
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +28,9 @@ export class SidebarComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    public userService: UserService,
+    public ipfsService: IpfsService
   ) {}
   @HostListener('window:resize', ['$event'])
   windowResizecall(event) {

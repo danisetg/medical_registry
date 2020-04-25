@@ -1,0 +1,143 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Patient Profile</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/dashboard/main">
+                <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Patient</a>
+            </li>
+            <li class="breadcrumb-item active" *ngIf="patient">{{patient.name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="patient">
+      <div class="col-lg-4 col-md-12">
+        <div class="card">
+          <div class="contact-grid profile-image">
+            <img src="{{patient.imageUrl}}" alt="">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="card">
+          <div class="header">
+            <h2>About Patient</h2>
+          </div>
+          <div class="tab-pane body active" id="about">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Name: </small>
+                <p>{{patient.name}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Phone: </small>
+                <p>{{patient.mobile}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">CURP: </small>
+                <p>{{patient.curp}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Birth Date: </small>
+                <p>{{patient.birthday | date: "shortDate"}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Blood Type: </small>
+                <p>{{patient.blood}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Genre: </small>
+                <p>{{patient.genre}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <small class="text-muted">Created by: </small>
+                <p *ngIf="doctor">{{doctor.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" aria-expanded="true">
+        <div class="row">
+          <div class="col-12">
+            <button mat-raised-button color="primary" (click)="addDiagnosis()" style="margin: 10px; float: right">
+              Add Diagnosis
+            </button>
+          </div>
+
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card project_widget">
+              <div class="header">
+                <h5>Diagnosis History</h5>
+              </div>
+              <div class="body">
+                <div class="table-responsive">
+                  <table class="table table-striped custom-table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Doctor</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>Description</th>
+                        <th>Observations</th>
+                        <th>Files</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let diagnosis of history">
+                        <td>{{diagnosis.creationDate | date: "shortDate"}}</td>
+                        <td>
+                          <a  *ngIf="diagnosis.doctor" [routerLink]="'/doctors/' + diagnosis.doctor.address">
+                            {{diagnosis.doctor.name}}
+                          </a>
+                        </td>
+                        <td>{{diagnosis.height}} cm</td>
+                        <td>{{diagnosis.weight}} kg</td>
+                        <td><div [innerHTML]="diagnosis.description"></div></td>
+                        <td><div [innerHTML]="diagnosis.observations"></div></td>
+                        <td>
+                          <div class="row" *ngFor="let file of diagnosis.hashFile" style="margin: 4px;">
+                            <a [attr.href]="file.url" target="_blank"><span class="badge bg-cyan">{{file.name}}</span></a>
+                          </div>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="no-results" [style.display]="history.length == 0 ? '' : 'none'">
+                    Patient doesn't have any registered diagnosis.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

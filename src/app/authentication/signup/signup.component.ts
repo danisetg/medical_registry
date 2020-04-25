@@ -26,10 +26,8 @@ export class SignupComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onSubmit(doctor: Doctor) {
-      if(!doctor.address) {
-        doctor.address = this.doctorService.account;
-      }
+  onSubmit(doctor: Doctor) {    
+      doctor.hashProfileImg = "QmTK3tw4NaENb8C9L4XuDnhSDPAxiP577BY3MR3m4VKZ7u";
       this.loading = true;
       this.doctorService.register(doctor).then(res => {
         this.messageService.success("Doctor Registrado Correctamente");

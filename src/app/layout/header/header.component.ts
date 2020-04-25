@@ -8,6 +8,8 @@ import {
   HostListener
 } from '@angular/core';
 import { RightSidebarService } from '../../shared/services/rightsidebar.service';
+import { IpfsService } from 'src/app/shared/services/ipfs.service';
+import { UserService } from 'src/app/shared/services/user.service';
 const document: any = window.document;
 @Component({
   selector: 'app-header',
@@ -19,7 +21,9 @@ export class HeaderComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     public elementRef: ElementRef,
-    private dataService: RightSidebarService
+    private dataService: RightSidebarService,
+    public ipfsService: IpfsService,
+    public userService: UserService
   ) {}
   notifications: any[] = [
     {

@@ -130,6 +130,25 @@
     background-color: #888;
   }
 }
+.btn-tbl-view {
+  background-color: #00b0e4;
+  height: 30px !important;
+  width: 30px !important;
+  margin: 2px !important;
+  line-height: 30px !important;
+  color: #fff;
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2) !important;
+  .material-icons {
+    font-size: 16px !important;
+  }
+  &:hover {
+    background-color: #888;
+    color: $white;
+  }
+  &:focus {
+    background-color: #888;
+  }
+}
 .btn-tbl-delete {
   background-color: #ff944f;
   height: 30px !important;
