@@ -78,7 +78,7 @@
 
       </div>
     </div>
-    <div class="tab-content">
+    <div class="tab-content" *ngIf="userService.role == 'doctor'">
       <div role="tabpanel" class="tab-pane active" aria-expanded="true">
         <div class="row">
           <div class="col-12">

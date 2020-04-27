@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Patient } from 'src/app/shared/models/patient.model';
 import { PatientService } from 'src/app/shared/services/patient.service';
@@ -6,6 +6,7 @@ import { Doctor } from 'src/app/shared/models/doctor.model';
 import { DoctorService } from 'src/app/shared/services/doctor.service';
 import { Diagnosis } from 'src/app/shared/models/diagnosis.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-patients-show',
@@ -14,6 +15,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class PatientsShowComponent implements OnInit {
   allowedRoles = ["doctor"];
+  @Input() address: string;
   patient: Patient;
   doctor: Doctor;
   history: Diagnosis[] = [];
@@ -21,15 +23,21 @@ export class PatientsShowComponent implements OnInit {
               private route: ActivatedRoute,
               private patientService: PatientService,
               private doctorService: DoctorService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              public userService: UserService) { }
+              
 
   ngOnInit(): void {
-      this.authService.validateAccess(this.allowedRoles);
+      if(!this.address) {
+        this.authService.validateAccess(this.allowedRoles);
+        this.address = this.route.snapshot.params.address;
+      }
+
       this.getPatient();
   }
 
   getPatient() {
-    this.patientService.getByAddress(this.route.snapshot.params.address).subscribe(patient => {
+    this.patientService.getByAddress(this.address).subscribe(patient => {
       this.patient = patient;
       this.getDoctor(patient.createdBy);
       this.getHistory();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-patients-profile',
@@ -8,10 +9,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class PatientsProfileComponent implements OnInit {
   allowedRoles = ["patient"];
-  constructor(private authService: AuthService) { }
+  address: string;
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.authService.validateAccess(this.allowedRoles);
+    this.address = this.userService.profile.address;
   }
 
 }
