@@ -5,7 +5,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Home',
     icon: 'fas fa-home',
     class: '',
-    groupTitle: false,
+    allowedRoles: ["patient", "doctor"],
     submenu: []
   },
   {
@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Doctors',
     icon: 'fas fa-user-md',
     class: '',
-    groupTitle: false,
+    allowedRoles: ["patient", "doctor"],
     submenu: []
   },
   {
@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Patients',
     icon: 'fab fa-accessible-icon',
     class: '',
-    groupTitle: false,
+    allowedRoles: ["doctor"],
     submenu: []
   }
 ];

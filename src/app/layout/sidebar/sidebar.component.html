@@ -22,9 +22,8 @@
                 <!-- First level menu -->
                 <li [class.active]="showMenu === sidebarItem.title" *ngFor="let sidebarItem of sidebarItems"
                     [routerLinkActive]="sidebarItem.submenu.length != 0 ? '' : 'active'">
-                    <div class="header" *ngIf="sidebarItem.groupTitle === true">{{sidebarItem.title}}</div>
                     <a [routerLink]="sidebarItem.class === '' ? [sidebarItem.path] : null"
-                        *ngIf="!sidebarItem.groupTitle;" [ngClass]="[sidebarItem.class]"
+                        *ngIf="sidebarItem.allowedRoles.includes(userService.role);" [ngClass]="[sidebarItem.class]"
                         (click)="callMenuToggle($event, sidebarItem.title)">
                         <i [ngClass]="[sidebarItem.icon]"></i>
                         <span class="hide-menu">{{sidebarItem.title}}
