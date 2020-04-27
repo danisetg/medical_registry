@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-doctors-update',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doctors-update.component.sass']
 })
 export class DoctorsUpdateComponent implements OnInit {
-
-  constructor() { }
+  allowedRoles = ["doctor"];
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.validateAccess(this.allowedRoles);
   }
 
 }

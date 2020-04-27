@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Doctor } from 'src/app/shared/models/doctor.model';
 import { DoctorService } from 'src/app/shared/services/doctor.service';
 import { Diagnosis } from 'src/app/shared/models/diagnosis.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-doctors-show',
@@ -10,14 +11,17 @@ import { Diagnosis } from 'src/app/shared/models/diagnosis.model';
   styleUrls: ['./doctors-show.component.scss']
 })
 export class DoctorsShowComponent implements OnInit {
+  allowedRoles = ["doctor", "patient"];
   doctor: Doctor;
   createdBy: Doctor;
   history: Diagnosis[] = [];
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private doctorService: DoctorService) { }
+              private doctorService: DoctorService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+      this.authService.validateAccess(this.allowedRoles);
       this.getDoctor();
   }
 

@@ -5,6 +5,7 @@ import { PatientService } from 'src/app/shared/services/patient.service';
 import { Doctor } from 'src/app/shared/models/doctor.model';
 import { DoctorService } from 'src/app/shared/services/doctor.service';
 import { Diagnosis } from 'src/app/shared/models/diagnosis.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-patients-show',
@@ -12,15 +13,18 @@ import { Diagnosis } from 'src/app/shared/models/diagnosis.model';
   styleUrls: ['./patients-show.component.scss']
 })
 export class PatientsShowComponent implements OnInit {
+  allowedRoles = ["doctor"];
   patient: Patient;
   doctor: Doctor;
   history: Diagnosis[] = [];
   constructor(private router: Router,
               private route: ActivatedRoute,
               private patientService: PatientService,
-              private doctorService: DoctorService) { }
+              private doctorService: DoctorService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+      this.authService.validateAccess(this.allowedRoles);
       this.getPatient();
   }
 

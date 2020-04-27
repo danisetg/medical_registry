@@ -36,7 +36,8 @@ export class PatientService {
 	login(user): Promise<any> {
       user.address = this.web3Service.account.toLowerCase();
       console.log(user.address);
-			return this.web3Service.contractInstance.loginPatient(user.address, user.password, { from: user.address });
+      console.log(user.password);
+			return this.web3Service.contractInstance.loginPatient(user.address, user.password);
 	}
 
 		// Return a list of the Patients registered

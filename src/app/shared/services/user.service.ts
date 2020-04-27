@@ -26,6 +26,7 @@ export class UserService {
   }
 
   public getProfile(): Observable<any>{
+    console.log("entro aqui", this.role);
     return this.services[this.role].getByAddress(this.services[this.role].web3Service.account);
   }
 }

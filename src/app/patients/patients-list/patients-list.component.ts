@@ -11,12 +11,14 @@ import { Patient } from 'src/app/shared/models/patient.model';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import { IpfsService } from 'src/app/shared/services/ipfs.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 @Component({
   selector: 'app-patients-list',
   templateUrl: './patients-list.component.html',
   styleUrls: ['./patients-list.component.sass']
 })
 export class PatientsListComponent implements OnInit {
+  allowedRoles = ["doctor"];
   displayedColumns = [
     'img',
     'name',
@@ -36,13 +38,15 @@ export class PatientsListComponent implements OnInit {
     private snackBar: MatSnackBar,
     public patientservice: PatientService,
     public ipfsService: IpfsService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filter: ElementRef;
   ngOnInit() {
+    this.authService.validateAccess(this.allowedRoles);
     this.loadData();
   }
   refresh() {
@@ -61,7 +65,7 @@ export class PatientsListComponent implements OnInit {
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
-  loadData() {    
+  loadData() {
     this.loading = true;
     this.patientservice.list().subscribe( accounts => {
       console.log(accounts);
@@ -73,7 +77,7 @@ export class PatientsListComponent implements OnInit {
           console.log(patient);
         });
       })
-      
+
     });
   }
   showNotification(colorName, text, placementFrom, placementAlign) {

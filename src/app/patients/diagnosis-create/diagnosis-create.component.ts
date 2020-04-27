@@ -4,6 +4,7 @@ import { PatientService } from 'src/app/shared/services/patient.service';
 import { IpfsService } from 'src/app/shared/services/ipfs.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-diagnosis-create',
@@ -11,14 +12,17 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./diagnosis-create.component.sass']
 })
 export class DiagnosisCreateComponent implements OnInit {
+  allowedRoles = ["doctor"];
   loading = false;
   constructor(private patientService: PatientService,
               private messageService: MessageService,
               private router: Router,
               private route: ActivatedRoute,
-              private ipfsService: IpfsService) { }
+              private ipfsService: IpfsService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.validateAccess(this.allowedRoles);
   }
 
   onSubmit(diagnosis: Diagnosis) {
