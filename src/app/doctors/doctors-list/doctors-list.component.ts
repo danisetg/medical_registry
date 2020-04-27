@@ -56,7 +56,7 @@ export class DoctorsListComponent implements OnInit {
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
-  loadData() {    
+  loadData() {
     this.loading = true;
     this.doctorService.list().subscribe( accounts => {
       console.log(accounts);
@@ -68,7 +68,7 @@ export class DoctorsListComponent implements OnInit {
           console.log(doctor);
         });
       })
-      
+
     });
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
@@ -79,4 +79,7 @@ export class DoctorsListComponent implements OnInit {
       panelClass: colorName
     });
   }
+  viewDoctor(doctor: Doctor) {
+    this.router.navigate(['doctors/' + doctor.address]);
+}
 }

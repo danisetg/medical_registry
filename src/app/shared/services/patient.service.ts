@@ -34,7 +34,9 @@ export class PatientService {
 	}
 
 	login(user): Promise<any> {
-			return this.web3Service.contractInstance.loginPatient(user.address, user.password)
+      user.address = this.web3Service.account.toLowerCase();
+      console.log(user.address);
+			return this.web3Service.contractInstance.loginPatient(user.address, user.password, { from: user.address });
 	}
 
 		// Return a list of the Patients registered
@@ -48,7 +50,10 @@ export class PatientService {
 		return from(this.web3Service.contractInstance.getPatient(patientAdressToGet.toLowerCase(),
 		{ from: this.web3Service.account.toLowerCase()})).pipe(map((response: string) => {
 			console.log("patient: ", response);
-			let patient: Patient = JSON.parse(response);
+      let patient: Patient = JSON.parse(response);
+      if (patient.hashProfileImg.length < 15) {
+        patient.hashProfileImg = "QmTK3tw4NaENb8C9L4XuDnhSDPAxiP577BY3MR3m4VKZ7u";
+      }
 			patient.imageUrl = this.ipfsService.baseUrl + patient.hashProfileImg;
 			return patient;
 		}));

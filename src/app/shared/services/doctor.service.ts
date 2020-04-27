@@ -11,7 +11,7 @@ import { IpfsService } from './ipfs.service';
 export class DoctorService {
 	public account: string;
 	public profile: Doctor;
-	constructor(public web3Service: Web3Service, private ipfsService: IpfsService) { 
+	constructor(public web3Service: Web3Service, private ipfsService: IpfsService) {
 		this.web3Service.account = web3Service.account;
 	}
 
@@ -24,8 +24,8 @@ export class DoctorService {
 	register(doctor: Doctor): Promise<any> {
 		return this.web3Service.contractInstance.registerDoctor(
 			this.web3Service.account,
-			doctor.name, 
-			doctor.idCard, 
+			doctor.name,
+			doctor.idCard,
 			doctor.specialization,
 			doctor.email,
 			(new Date()).toString(),
@@ -39,8 +39,8 @@ export class DoctorService {
 		console.log(this.web3Service.account, doctor.address);
 		return this.web3Service.contractInstance.registerDoctor(
 			doctor.address.toLowerCase(),
-			doctor.name, 
-			doctor.idCard, 
+			doctor.name,
+			doctor.idCard,
 			doctor.specialization,
 			doctor.email,
 			(new Date()).toString(),
@@ -57,7 +57,7 @@ export class DoctorService {
 	// Return a list of the Doctors registered
 	list(): Observable<any> {
 		// return the total number of registered doctors
-		return from(this.web3Service.contractInstance.listDoctors(this.web3Service.account, {from: this.web3Service.account}));  
+		return from(this.web3Service.contractInstance.listDoctors(this.web3Service.account, {from: this.web3Service.account}));
 	}
 
 	getProfile() {
@@ -71,11 +71,14 @@ export class DoctorService {
 	getByAddress(doctorAddressToGet): Observable<any> {
 		return from(this.web3Service.contractInstance.getDoctor(doctorAddressToGet, { from: this.web3Service.account })).pipe(map((response: string) => {
 			console.log("doctor: ", response);
-			let doctor: Doctor = JSON.parse(response);
+      let doctor: Doctor = JSON.parse(response);
+      if (doctor.hashProfileImg.length < 15) {
+        doctor.hashProfileImg = "QmTK3tw4NaENb8C9L4XuDnhSDPAxiP577BY3MR3m4VKZ7u";
+      }
 			doctor.imageUrl = this.ipfsService.baseUrl + doctor.hashProfileImg;
 			return doctor;
 		}));
-	}	
+	}
 
 	async addDiagnosisToPacient(doctorAddress, patientAccount, creationDate, weight, height, description, observations, hashFile) {
 		let res = await this.web3Service.contractInstance.addDiagnosisToPatient(patientAccount, creationDate, weight, height, description, observations, hashFile,

@@ -9,12 +9,12 @@
                 <li class="sidebar-user-panel">
                     <div class="user-panel">
                         <div class=" image">
-                            <img src="{{userService.profile.imageUrl}}" class="img-circle user-img-circle" alt="User Image" />
+                            <img *ngIf="userService.profile" src="{{userService.profile.imageUrl}}" class="img-circle user-img-circle" alt="User Image" />
                         </div>
                     </div>
-                    <div class="profile-usertitle">
+                    <div class="profile-usertitle" *ngIf="userService.profile">
                         <div class="sidebar-userpic-name font-weight-bold">
-                            {{userService.role == 'doctor'? 'Dr. ': ''}} {{userService.profile.name}} 
+                            {{userService.role == 'doctor'? 'Dr. ': ''}} {{userService.profile.name}}
                         </div>
                         <div class="profile-usertitle-job ">{{userService.role == 'doctor'? userService.profile.specialization: ''}} </div>
                     </div>

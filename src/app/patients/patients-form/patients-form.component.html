@@ -1,139 +1,133 @@
-
-
 <div class="row">
-    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-        <div class="row" style="margin: 20px;">
-            <img [src]="imageUrl" class="img-circle user-img-circle"
-                style="width: 250px; height: 250px; object-fit: contain;">
-        </div>
-        <div class="row" style="margin: 20px;">
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
-                <button mat-raised-button color="primary" (click)="fileInput.click()">
-                    <mat-icon>file_upload</mat-icon>
-                    Upload Image
-                </button>
-                <input type="file" #fileInput id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*"
-                    (change)="loadImage($event.target.files)" style="display:none;" />
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3" *ngIf="newImage">
-                <button mat-raised-button color="warn" (click)="cancelImage()">
-                    <mat-icon>cancel</mat-icon>
-                    Cancel Image
-                </button>
-            </div>
-        </div>
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+    <div class="row" style="margin: 20px;">
+      <img [src]="imageUrl" class="img-circle user-img-circle"
+        style="width: 250px; height: 250px; object-fit: contain;">
     </div>
-    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-        <form class="m-4" #patientForm="ngForm" (ngSubmit)="onSubmit(patientForm.value)">
-            <div class="row">
-                <div class="col-10">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Ether Account</mat-label>
-                        <input matInput name="address" #address="ngModel" [(ngModel)]="patient.address" required>
-                        <mat-icon matSuffix>face</mat-icon>
-                        <mat-error *ngIf="address.invalid && (address.dirty || address.touched)">
-                            A valid Ether Account is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-1">
-                    <button mat-raised-button color="primary" type="button" (click)="openScanDialog()" style="height: 47px;
+    <div class="row" style="margin: 20px;">
+      <button mat-raised-button color="primary" (click)="fileInput.click()">
+        <mat-icon>file_upload</mat-icon>
+        {{newImage? 'Modify': 'Upload'}} Image
+      </button>
+      <input type="file" #fileInput id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*"
+        (change)="loadImage($event.target.files)" style="display:none;" />
+    </div>
+    <div class="row" style="margin: 20px;" *ngIf="newImage">
+      <button mat-raised-button color="warn" (click)="cancelImage()">
+        <mat-icon>cancel</mat-icon>
+        Cancel Image
+      </button>
+    </div>
+  </div>
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+    <form class="m-4" #patientForm="ngForm" (ngSubmit)="onSubmit(patientForm.value)">
+      <div class="row">
+        <div class="col-10">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Ether Account</mat-label>
+            <input matInput name="address" #address="ngModel" [(ngModel)]="patient.address" required>
+            <mat-icon matSuffix>face</mat-icon>
+            <mat-error *ngIf="address.invalid && (address.dirty || address.touched)">
+              A valid Ether Account is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-1">
+          <button mat-raised-button color="primary" type="button" (click)="openScanDialog()" style="height: 47px;
                     margin-top: 5px;">
-                        <mat-icon>camera_alt</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Name</mat-label>
-                <input matInput name="name" #name="ngModel" [ngModel]="patient.name" required>
-                <mat-icon matSuffix>face</mat-icon>
-                <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-                    Name is required
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>CURP</mat-label>
-                <input matInput name="curp" #curp="ngModel" [ngModel]="patient.curp" required>
-                <mat-icon matSuffix>credit_card</mat-icon>
-                <mat-error *ngIf="curp.invalid && (curp.dirty || curp.touched)">
-                    CURP Id is required
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Mobile</mat-label>
-                <input matInput name="mobile" #mobile="ngModel" [ngModel]="patient.mobile" required>
-                <mat-icon matSuffix>phone</mat-icon>
-                <mat-error *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
-                    Mobile is required
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Birth Date</mat-label>
-                <input matInput [matDatepicker]="myDatepicker" name="birthday" #birthday="ngModel" 
-                [ngModel]="patient.birthday" required>
-                <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-                <mat-datepicker #myDatepicker></mat-datepicker>
-                <mat-error *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)">
-                    Birth Date is required
-                </mat-error>
-            </mat-form-field>
-           
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Blood Type</mat-label>
-                <mat-select name="blood" #blood="ngModel"  [ngModel]="patient.blood" required>
-                  <mat-option *ngFor="let bloodType of bloodTypes" [value]="bloodType">{{bloodType}}</mat-option>
-                </mat-select>
-                <mat-icon matSuffix class="fas fa-vial" aria-hidden="true"></mat-icon>
-                <mat-error *ngIf="blood.invalid && (blood.dirty || blood.touched)">
-                  Blood Type is required
-                </mat-error>
-            </mat-form-field>
+            <mat-icon>camera_alt</mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" #name="ngModel" [ngModel]="patient.name" required>
+        <mat-icon matSuffix>face</mat-icon>
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>CURP</mat-label>
+        <input matInput name="curp" #curp="ngModel" [ngModel]="patient.curp" required>
+        <mat-icon matSuffix>credit_card</mat-icon>
+        <mat-error *ngIf="curp.invalid && (curp.dirty || curp.touched)">
+          CURP Id is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Mobile</mat-label>
+        <input matInput name="mobile" #mobile="ngModel" [ngModel]="patient.mobile" required>
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
+          Mobile is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="myDatepicker" name="birthday" #birthday="ngModel" [ngModel]="patient.birthday"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+        <mat-error *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)">
+          Birth Date is required
+        </mat-error>
+      </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Genre</mat-label>
-                <mat-select name="genre" #genre="ngModel"  [ngModel]="patient.genre" required>
-                  <mat-option value="male">Male</mat-option>
-                  <mat-option value="female">Female</mat-option>
-                </mat-select>
-                <mat-icon matSuffix class="fas fa-vial" aria-hidden="true"></mat-icon>
-                <mat-error *ngIf="blood.invalid && (blood.dirty || blood.touched)">
-                  Gender is required
-                </mat-error>
-            </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Blood Type</mat-label>
+        <mat-select name="blood" #blood="ngModel" [ngModel]="patient.blood" required>
+          <mat-option *ngFor="let bloodType of bloodTypes" [value]="bloodType">{{bloodType}}</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>opacity</mat-icon>
+        <mat-error *ngIf="blood.invalid && (blood.dirty || blood.touched)">
+          Blood Type is required
+        </mat-error>
+      </mat-form-field>
 
-            
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Genre</mat-label>
+        <mat-select name="genre" #genre="ngModel" [ngModel]="patient.genre" required>
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>wc</mat-icon>
+        <mat-error *ngIf="blood.invalid && (blood.dirty || blood.touched)">
+          Gender is required
+        </mat-error>
+      </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Password</mat-label>
-                <input matInput name="password" #password="ngModel" ngModel [type]="hide ? 'password' : 'text'"
-                    required>
-                <mat-icon matSuffix (click)="hide = !hide">
-                    {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
-                    Password is required
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Confirm Password</mat-label>
-                <input matInput name="cpassword" #cpassword="ngModel" ngModel [type]="chide ? 'password' : 'text'"
-                    required>
-                <mat-icon matSuffix (click)="chide = !chide">
-                    {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <mat-error *ngIf="cpassword.invalid && (cpassword.dirty || cpassword.touched)">
-                    Confirm Password is required
-                </mat-error>
-                <mat-error *ngIf="cpassword.value != password.value && (cpassword.dirty || cpassword.touched)">
-                    Passwords are different
-                </mat-error>
-            </mat-form-field>
 
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button class="mr-3" [disabled]="!patientForm.valid || password.value != cpassword.value || loading"
-                        mat-raised-button color="primary" [class.spinner]="loading">Submit</button>
-                    <button type="button" mat-button>Cancel</button>
-                </div>
-            </div>
-        </form>
-    </div>
+
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput name="password" #password="ngModel" ngModel [type]="hide ? 'password' : 'text'" required>
+        <mat-icon matSuffix (click)="hide = !hide">
+          {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput name="cpassword" #cpassword="ngModel" ngModel [type]="chide ? 'password' : 'text'" required>
+        <mat-icon matSuffix (click)="chide = !chide">
+          {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="cpassword.invalid && (cpassword.dirty || cpassword.touched)">
+          Confirm Password is required
+        </mat-error>
+        <mat-error *ngIf="cpassword.value != password.value && (cpassword.dirty || cpassword.touched)">
+          Passwords are different
+        </mat-error>
+      </mat-form-field>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+          <button class="mr-3" [disabled]="!patientForm.valid || password.value != cpassword.value || loading"
+            mat-raised-button color="primary" [class.spinner]="loading">Submit</button>
+          <button type="button" mat-button>Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

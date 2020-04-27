@@ -2,7 +2,7 @@
 @keyframes spinner {
     to {transform: rotate(360deg);}
   }
-   
+
   .spinner:before {
     content: '';
     box-sizing: border-box;
@@ -31,4 +31,7 @@
 
 .mat-dialog-container {
   overflow: hidden !important;
+}
+a:hover {
+  cursor: pointer;
 }

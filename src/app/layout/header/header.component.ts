@@ -10,6 +10,7 @@ import {
 import { RightSidebarService } from '../../shared/services/rightsidebar.service';
 import { IpfsService } from 'src/app/shared/services/ipfs.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Router } from '@angular/router';
 const document: any = window.document;
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
     public elementRef: ElementRef,
     private dataService: RightSidebarService,
     public ipfsService: IpfsService,
-    public userService: UserService
+    public userService: UserService,
+    private router: Router
   ) {}
   notifications: any[] = [
     {
@@ -151,5 +153,11 @@ export class HeaderComponent implements OnInit {
       (this.dataService.currentStatus._isScalar = !this.dataService
         .currentStatus._isScalar)
     );
+  }
+  logout() {
+    localStorage.removeItem('profile');
+    localStorage.removeItem('role');
+    localStorage.removeItem('account');
+    this.router.navigate(['/authentication/signin']);
   }
 }

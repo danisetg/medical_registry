@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item bcrumb-2">
                             <a href="#" onClick="return false;">Doctors</a>
                         </li>
-                        <li class="breadcrumb-item active">View</li>
+                        <li class="breadcrumb-item active">List</li>
                     </ul>
                 </div>
             </div>
@@ -86,14 +86,10 @@
                                 <ng-container matColumnDef="actions">
                                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                                        <button mat-icon-button color="accent" class="btn-tbl-edit"
-                                            (click)="$event.stopPropagation()" (click)="editCall(row)">
-                                            <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
-                                        </button>
-                                        <button mat-icon-button color="accent" class="btn-tbl-delete"
-                                            (click)="$event.stopPropagation()" (click)="deleteItem(i, row)">
-                                            <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
-                                        </button>
+                                        <button mat-icon-button color="primary" class="btn-tbl-view"
+                                            (click)="viewDoctor(row)">
+                                          <mat-icon aria-label="View" class="col-white fas fa-eye" aria-hidden="true"></mat-icon>
+                                      </button>
                                     </mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

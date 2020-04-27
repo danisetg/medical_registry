@@ -19,13 +19,14 @@ const routes: Routes = [
     component: DoctorsUpdateComponent
   },
   {
-    path: ':address',
-    component: DoctorsShowComponent
-  },
-  {
     path: 'profile',
     component: DoctorsProfileComponent
+  },
+  {
+    path: ':address',
+    component: DoctorsShowComponent
   }
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

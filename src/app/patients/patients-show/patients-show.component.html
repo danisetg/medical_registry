@@ -8,11 +8,11 @@
               <h4 class="page-title">Patient Profile</h4>
             </li>
             <li class="breadcrumb-item bcrumb-1">
-              <a routerLink="/dashboard/main">
+              <a routerLink="/dashboard">
                 <i class="fas fa-home"></i> Home</a>
             </li>
             <li class="breadcrumb-item bcrumb-2">
-              <a href="#" onClick="return false;">Patient</a>
+              <a routerLink="/patients/list">Patient</a>
             </li>
             <li class="breadcrumb-item active" *ngIf="patient">{{patient.name}}</li>
           </ul>
