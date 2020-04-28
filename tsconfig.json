@@ -19,6 +19,9 @@
       "dom"
     ]
   },
+  "externals": {
+    "websocket": "window.WebSocket"
+  },
   "angularCompilerOptions": {
     "enableIvy": false,
     "allowEmptyCodegenFiles": true
