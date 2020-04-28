@@ -78,9 +78,9 @@
 
       </div>
     </div>
-    <div class="tab-content" *ngIf="userService.role == 'doctor'">
+    <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" aria-expanded="true">
-        <div class="row">
+        <div class="row" *ngIf="userService.role == 'doctor'">
           <div class="col-12">
             <button mat-raised-button color="primary" (click)="addDiagnosis()" style="margin: 10px; float: right">
               Add Diagnosis

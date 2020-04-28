@@ -12,6 +12,7 @@ import { DoctorService } from 'src/app/shared/services/doctor.service';
 import { IpfsService } from 'src/app/shared/services/ipfs.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-doctors-list',
   templateUrl: './doctors-list.component.html',
@@ -38,7 +39,8 @@ export class DoctorsListComponent implements OnInit {
     public doctorService: DoctorService,
     public ipfsService: IpfsService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    public userService: UserService
   ) {}
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

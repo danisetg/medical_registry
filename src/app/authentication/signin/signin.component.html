@@ -53,12 +53,9 @@
               </span>
             </label>
           </div>
-          <div>
-            <a class="txt1" routerLink="/authentication/forgot-password">Forgot Password?</a>
-          </div>
         </div>
         <div class="container-login100-form-btn">
-          <button  class="login100-form-btn" [disabled]="loginForm.invalid || loading" 
+          <button  class="login100-form-btn" [disabled]="loginForm.invalid || loading"
           [class.spinner]="loading" type="submit" mat-raised-button color="primary">
             Login
           </button>

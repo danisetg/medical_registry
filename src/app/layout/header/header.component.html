@@ -18,46 +18,6 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <!-- Full Screen Button -->
-                <li class="fullscreen">
-                    <button mat-icon-button (click)="callFullscreen()" class=" nav-notification-icons">
-                        <mat-icon>fullscreen</mat-icon>
-                    </button>
-                </li>
-                <!-- #END# Full Screen Button -->
-                <!-- #START# Notifications-->
-                <li class="dropdown">
-                    <button mat-icon-button data-toggle="dropdown" class=" nav-notification-icons">
-                        <mat-icon>notifications_none</mat-icon>
-                        <span class="label-count bg-orange"></span>
-                    </button>
-                    <ul class="dropdown-menu pullDown">
-                        <li class="header">NOTIFICATIONS</li>
-                        <li class="body">
-                            <ul class="menu" style="position: relative; max-width: 600px; max-height: 200px;"
-                                [perfectScrollbar]>
-                                <li>
-                                    <a href="#" *ngFor="let notification of notifications" onClick="return false;">
-                                        <span class="table-img msg-user">
-                                            <img src="{{notification.userImg}}" alt="">
-                                        </span>
-                                        <span class="menu-info">
-                                            <span class="menu-title">{{notification.userName}}</span>
-                                            <span class="menu-desc">
-                                                <i class="material-icons">access_time</i> {{notification.time}}
-                                            </span>
-                                            <span class="menu-desc">{{notification.message}}</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="#" onClick="return false;">View All Notifications</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- #END# Notifications-->
                 <li class="dropdown user_profile">
                     <a href="#" onClick="return false;" data-toggle="dropdown" role="button" class="pt-0">
                         <img *ngIf="userService.profile" src="{{userService.profile.imageUrl}}" class="rounded-circle" width="32" height="32" alt="User">
@@ -68,16 +28,6 @@
                                 <li>
                                     <a routerLink="{{userService.role == 'doctor'? '/doctors/profile': 'patients/profile'}}" onClick="return false;">
                                         <mat-icon aria-hidden="false" class="mr-2">person</mat-icon>Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onClick="return false;">
-                                        <mat-icon aria-hidden="false" class="mr-2">feedback</mat-icon>Feedback
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" onClick="return false;">
-                                        <mat-icon aria-hidden="false" class="mr-2">help</mat-icon>Help
                                     </a>
                                 </li>
                                 <li>
