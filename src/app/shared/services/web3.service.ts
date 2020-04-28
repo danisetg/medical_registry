@@ -4,7 +4,8 @@ import Web3 from "web3";
 import * as TruffleContract from 'truffle-contract';
 import { Subject } from 'rxjs';
 
-let tokenAbi = require('../../../contracts/Medical.json');
+let tokenDoctor = require('../../../contracts/Doctor.json');
+let tokenPatient = require('../../../contracts/Patient.json');
 
 declare let window: any;
 declare let require: any;
@@ -21,7 +22,8 @@ export class Web3Service {
   private contract: any;
   public accounts: string[];
   public account: string;
-  public contractInstance: any;
+  public doctorContract: any;
+  public patientContract: any;
   public ready = false;
 
   public accountsObservable = new Subject<string[]>();
@@ -42,17 +44,21 @@ export class Web3Service {
         this.web3 = new Web3(this.web3Provider);
         console.log(this.web3);
         //create a exhibition contract instance
-        this.contract = TruffleContract(tokenAbi);
-        this.contract.setProvider(this.web3Provider);
+        let doctorContract = TruffleContract(tokenDoctor);
+        let patientContract = TruffleContract(tokenPatient);
 
-        this.contractInstance = await this.contract.deployed();
-  
+        doctorContract.setProvider(this.web3Provider);
+        patientContract.setProvider(this.web3Provider);
+
+        this.patientContract = await patientContract.deployed();
+        this.doctorContract = await doctorContract.deployed();
+
         setInterval(this.refreshAccounts, 500);
 
         this.enableAccounts().then(() => {
           this.refreshAccounts();
         });
-        return this.contract.deployed();
+        return doctorContract.deployed();
       } else {
         console.log("No web3? Please trying with MetaMask!");
       }

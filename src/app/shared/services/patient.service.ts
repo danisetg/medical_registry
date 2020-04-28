@@ -20,7 +20,7 @@ export class PatientService {
 	}
 
 	create(patient: Patient): Promise<any> {
-		return this.web3Service.contractInstance.registerPatient(
+		return this.web3Service.patientContract.registerPatient(
 				patient.address.toLowerCase(),
 				patient.name,
 				patient.curp,
@@ -37,18 +37,18 @@ export class PatientService {
       user.address = this.web3Service.account.toLowerCase();
       console.log(user.address);
       console.log(user.password);
-			return this.web3Service.contractInstance.loginPatient(user.address, user.password);
+			return this.web3Service.patientContract.loginPatient(user.address, user.password);
 	}
 
 		// Return a list of the Patients registered
 	list(): Observable<any> {
 			// return the total number of registered doctors
-		return from(this.web3Service.contractInstance.listPatients(this.web3Service.account, {from: this.web3Service.account}));
+		return from(this.web3Service.patientContract.listPatients(this.web3Service.account, {from: this.web3Service.account}));
 	}
 
   // Get Patient Data from its Address
 	getByAddress(patientAdressToGet): Observable<any> {
-		return from(this.web3Service.contractInstance.getPatient(patientAdressToGet.toLowerCase(),
+		return from(this.web3Service.patientContract.getPatient(patientAdressToGet.toLowerCase(),
 		{ from: this.web3Service.account.toLowerCase()})).pipe(map((response: string) => {
 			console.log("patient: ", response);
       let patient: Patient = JSON.parse(response);
@@ -61,7 +61,7 @@ export class PatientService {
 	}
 
 	getHistoryList(address) {
-		return from(this.web3Service.contractInstance.getHistoryPatientByAddress(
+		return from(this.web3Service.patientContract.getHistoryPatientByAddress(
 			address,
 			{from: this.web3Service.account})).pipe(map((response: string) => {
 				let history: string[] = response.length? response.split(','): [];
@@ -71,7 +71,7 @@ export class PatientService {
 
    // Get Patient Data from its Address
 	getDiagnosisByIdAndAddress(historyIdToGet, patientAdressToGet): Observable<any> {
-		return from(this.web3Service.contractInstance.getDiagnosisByIdAndAddress(
+		return from(this.web3Service.patientContract.getDiagnosisByIdAndAddress(
       historyIdToGet,
       patientAdressToGet.toLowerCase(),
 		  { from: this.web3Service.account.toLowerCase()})).pipe(map((response: string) => {
@@ -88,7 +88,7 @@ export class PatientService {
 	}
 
   addDiagnosis(address, diagnosis: Diagnosis) {
-    return this.web3Service.contractInstance.addDiagnosisToPatient(
+    return this.web3Service.patientContract.addDiagnosisToPatient(
       address.toLowerCase(),
       (new Date).toString(),
       diagnosis.weight.toString(),

@@ -22,7 +22,7 @@ export class DoctorService {
 	}
 
 	register(doctor: Doctor): Promise<any> {
-		return this.web3Service.contractInstance.registerDoctor(
+		return this.web3Service.doctorContract.registerDoctor(
 			this.web3Service.account,
 			doctor.name,
 			doctor.idCard,
@@ -37,7 +37,7 @@ export class DoctorService {
 	create(doctor: Doctor): Promise<any> {
 		console.log(doctor);
 		console.log(this.web3Service.account, doctor.address);
-		return this.web3Service.contractInstance.registerDoctor(
+		return this.web3Service.doctorContract.registerDoctor(
 			doctor.address.toLowerCase(),
 			doctor.name,
 			doctor.idCard,
@@ -51,13 +51,13 @@ export class DoctorService {
 
 	login(user): Promise<any> {
 		user.address = this.web3Service.account;
-		return this.web3Service.contractInstance.loginDoctor(user.address, user.password, { from: user.address });
+		return this.web3Service.doctorContract.loginDoctor(user.address, user.password, { from: user.address });
 	}
 
 	// Return a list of the Doctors registered
 	list(): Observable<any> {
 		// return the total number of registered doctors
-		return from(this.web3Service.contractInstance.listDoctors(this.web3Service.account, {from: this.web3Service.account}));
+		return from(this.web3Service.doctorContract.listDoctors(this.web3Service.account, {from: this.web3Service.account}));
 	}
 
 	getProfile() {
@@ -69,7 +69,7 @@ export class DoctorService {
 
 	// Get Doctor Data from its Address
 	getByAddress(doctorAddressToGet): Observable<any> {
-		return from(this.web3Service.contractInstance.getDoctor(doctorAddressToGet, { from: this.web3Service.account })).pipe(map((response: string) => {
+		return from(this.web3Service.doctorContract.getDoctor(doctorAddressToGet, { from: this.web3Service.account })).pipe(map((response: string) => {
 			console.log("doctor: ", response);
       let doctor: Doctor = JSON.parse(response);
       if (doctor.hashProfileImg.length < 15) {
@@ -81,20 +81,20 @@ export class DoctorService {
 	}
 
 	async addDiagnosisToPacient(doctorAddress, patientAccount, creationDate, weight, height, description, observations, hashFile) {
-		let res = await this.web3Service.contractInstance.addDiagnosisToPatient(patientAccount, creationDate, weight, height, description, observations, hashFile,
+		let res = await this.web3Service.doctorContract.addDiagnosisToPatient(patientAccount, creationDate, weight, height, description, observations, hashFile,
 			{ from: doctorAddress })
 		console.log("RES addDiagnosisToPacient: ", res)
 		return res
 	}
 
 	async getHistoryPatientByAddress(doctorAddress, patientAccount) {
-		let res = await this.web3Service.contractInstance.getHistoryPatientByAddress(patientAccount, { from: doctorAddress })
+		let res = await this.web3Service.doctorContract.getHistoryPatientByAddress(patientAccount, { from: doctorAddress })
 		console.log("RES getHistoryPatientByAddress: ", res)
 		return res;
 	}
 
 	async getDiagnosisByIdAndAddress(doctorAddress, patientAccount, diagnosisId) {
-		let res = await this.web3Service.contractInstance.getDiagnosisByIdAndAddress(diagnosisId, patientAccount, { from: doctorAddress })
+		let res = await this.web3Service.doctorContract.getDiagnosisByIdAndAddress(diagnosisId, patientAccount, { from: doctorAddress })
 		console.log("RES getDiagnosisByIdAndAddress: ", res)
 		return res
 	}
