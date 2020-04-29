@@ -50,7 +50,7 @@ export class DoctorService {
 	}
 
 	login(user): Promise<any> {
-		user.address = this.web3Service.account;
+    user.address = this.web3Service.account;
 		return this.web3Service.doctorContract.loginDoctor(user.address, user.password, { from: user.address });
 	}
 
@@ -97,5 +97,32 @@ export class DoctorService {
 		let res = await this.web3Service.doctorContract.getDiagnosisByIdAndAddress(diagnosisId, patientAccount, { from: doctorAddress })
 		console.log("RES getDiagnosisByIdAndAddress: ", res)
 		return res
-	}
+  }
+
+  changeDoctorStatus(address, status) {
+    console.log(address, status);
+    return this.web3Service.doctorContract.setDoctorStatus(address, status, { from: this.web3Service.account });
+  }
+
+  changeImage(address, hashImage) {
+    return this.web3Service.doctorContract.changeDoctorImage(address, hashImage, { from: this.web3Service.account });
+  }
+
+  changePassword(address, oldPassword, newPassword) {
+    console.log(oldPassword, newPassword);
+    return this.web3Service.doctorContract.changeDoctorpassword(address, oldPassword, newPassword, { from: this.web3Service.account });
+  }
+
+  getDatesIds() {
+    return from(this.web3Service.datesContract.listDatesIds(this.web3Service.account, 1, { from: this.web3Service.account })).pipe(map((response: string) => {
+      let dates: string[] = response.length? response.split(','): [];
+      return dates;
+    }));;
+  }
+  getDateById(id) {
+    return from(this.web3Service.datesContract.getDate(id, this.web3Service.account, 1, { from: this.web3Service.account })).pipe(map((response: string) => {
+      return JSON.parse(response);
+    }));;
+  }
+
 }

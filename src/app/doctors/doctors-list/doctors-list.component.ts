@@ -13,6 +13,9 @@ import { IpfsService } from 'src/app/shared/services/ipfs.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { DateTimePickerComponent } from 'src/app/shared/dialogs/date-time-picker/date-time-picker.component';
+import { PatientService } from 'src/app/shared/services/patient.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 @Component({
   selector: 'app-doctors-list',
   templateUrl: './doctors-list.component.html',
@@ -26,11 +29,13 @@ export class DoctorsListComponent implements OnInit {
     'email',
     'specialization',
     'joiningDate',
+    'status',
     'actions'
   ];
   index: number;
   id: number;
   doctors: Doctor[] = [];
+
   loading = false;
   constructor(
     public httpClient: HttpClient,
@@ -40,7 +45,9 @@ export class DoctorsListComponent implements OnInit {
     public ipfsService: IpfsService,
     private router: Router,
     private authService: AuthService,
-    public userService: UserService
+    public userService: UserService,
+    private messageService: MessageService,
+    private patientService: PatientService
   ) {}
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -87,5 +94,31 @@ export class DoctorsListComponent implements OnInit {
   }
   viewDoctor(doctor: Doctor) {
     this.router.navigate(['doctors/' + doctor.address]);
-}
+  }
+  changeDoctorStatus(doctor: Doctor) {
+    setTimeout(() => {
+      doctor.changingStatus = true;
+      this.doctorService.changeDoctorStatus(doctor.address, doctor.status).then(response => {
+          console.log(doctor.status);
+          doctor.changingStatus = false;
+      }, error => {
+          doctor.changingStatus = false;
+          doctor.status = !doctor.status;
+          console.log(error);
+      });
+    }, 1);
+  }
+
+  onMakeApoinment(doctor: Doctor) {
+    this.dialog.open(DateTimePickerComponent).afterClosed().subscribe(result => {
+      if(result) {
+        console.log(result);
+        this.patientService.makeAppoinment(doctor.address, result).then(res => {
+            this.messageService.success("Appoinment made correctly");
+        }, error => {
+          console.log(error);
+        });
+      }
+    });
+  }
 }

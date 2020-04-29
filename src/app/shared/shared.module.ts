@@ -18,8 +18,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { DateTimePickerComponent } from './dialogs/date-time-picker/date-time-picker.component';
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
-  declarations: [ScanQrComponent],
+  declarations: [ScanQrComponent, DateTimePickerComponent],
   imports: [CommonModule,
     ZXingScannerModule,
     CommonModule,
@@ -40,7 +42,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatDatepickerModule,
     MatCheckboxModule,
     MaterialFileInputModule,
+    NgxMaskModule
   ],
-  entryComponents: [ScanQrComponent]
+  entryComponents: [ScanQrComponent, DateTimePickerComponent]
 })
 export class SharedModule { }

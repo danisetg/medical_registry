@@ -17,7 +17,7 @@
                     </button>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" *ngIf="userService.profile">
                 <li class="dropdown user_profile">
                     <a href="#" onClick="return false;" data-toggle="dropdown" role="button" class="pt-0">
                         <img *ngIf="userService.profile" src="{{userService.profile.imageUrl}}" class="rounded-circle" width="32" height="32" alt="User">
@@ -26,7 +26,7 @@
                         <li class="body">
                             <ul class="user_dw_menu">
                                 <li>
-                                    <a routerLink="{{userService.role == 'doctor'? '/doctors/profile': 'patients/profile'}}" onClick="return false;">
+                                    <a routerLink="{{(userService.role == 'doctor'? '/doctors/': 'patients/') + userService.profile.address}}" onClick="return false;">
                                         <mat-icon aria-hidden="false" class="mr-2">person</mat-icon>Profile
                                     </a>
                                 </li>

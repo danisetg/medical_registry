@@ -1,0 +1,21 @@
+<div class="container">
+  <h3 mat-dialog-title>Write date and time in the given format</h3>
+  <div mat-dialog-content>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Date and hour</mat-label>
+      <span matPrefix>
+        <mat-icon class="mr-2">date_range</mat-icon>
+      </span>
+      <input name="datetime" #datetime="ngModel" matInput [(ngModel)]="dateModel" placeholder="YYYY-MM-DD HH:MM:SS" mask="0000-00-00 00:00:00" />
+    </mat-form-field>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="mr-3" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="datetime.invalid || !dateModel.length">
+      Submit
+    </button>
+    <button type="button" mat-button (click)="onCancel()">Cancel</button>
+  </div>
+
+</div>

@@ -99,4 +99,32 @@ export class PatientService {
       { from:	this.web3Service.account.toLowerCase() })
   }
 
+  changeImage(address, hashImage) {
+    return this.web3Service.patientContract.changePatientImage(address, hashImage, { from: this.web3Service.account });
+  }
+
+  changePassword(address, oldPassword, newPassword) {
+    return this.web3Service.patientContract.changePatientpassword(address, oldPassword, newPassword, { from: this.web3Service.account });
+  }
+
+  getMonths() {
+    return this.web3Service.patientContract.getMonths(this.web3Service.account, { from: this.web3Service.account });
+  }
+
+  makeAppoinment(doctorAddress, date) {
+    date = (new Date(date)).getTime() / 1000;
+    console.log(date);
+    return this.web3Service.datesContract.addDate(doctorAddress, this.web3Service.account, date, { from: this.web3Service.account });
+  }
+  getDatesIds() {
+    return from(this.web3Service.datesContract.listDatesIds(this.web3Service.account, 0, { from: this.web3Service.account })).pipe(map((response: string) => {
+      let dates: string[] = response.length? response.split(','): [];
+      return dates;
+    }));;
+  }
+  getDateById(id) {
+    return from(this.web3Service.datesContract.getDate(id, this.web3Service.account, 0, { from: this.web3Service.account })).pipe(map((response: string) => {
+      return JSON.parse(response);
+    }));;
+  }
 }

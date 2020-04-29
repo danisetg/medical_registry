@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 let tokenDoctor = require('../../../contracts/Doctor.json');
 let tokenPatient = require('../../../contracts/Patient.json');
+let tokenDates = require('../../../contracts/Dates.json');
 
 declare let window: any;
 declare let require: any;
@@ -24,6 +25,7 @@ export class Web3Service {
   public account: string;
   public doctorContract: any;
   public patientContract: any;
+  public datesContract: any;
   public ready = false;
 
   public accountsObservable = new Subject<string[]>();
@@ -46,11 +48,14 @@ export class Web3Service {
         //create a exhibition contract instance
         let doctorContract = TruffleContract(tokenDoctor);
         let patientContract = TruffleContract(tokenPatient);
+        let datesContract = TruffleContract(tokenDates);
 
         doctorContract.setProvider(this.web3Provider);
         patientContract.setProvider(this.web3Provider);
+        datesContract.setProvider(this.web3Provider);
 
         this.patientContract = await patientContract.deployed();
+        this.datesContract = await datesContract.deployed();
         this.doctorContract = await doctorContract.deployed();
 
         setInterval(this.refreshAccounts, 500);

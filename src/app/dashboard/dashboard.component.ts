@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DoctorService } from 'src/app/shared/services/doctor.service';
 import { PatientService } from 'src/app/shared/services/patient.service';
 import { Doctor } from 'src/app/shared/models/doctor.model';
+import { UserService } from '../shared/services/user.service';
 declare const $: any;
 @Component({
   selector: 'app-dashboard',
@@ -10,8 +11,15 @@ declare const $: any;
 })
 export class DashboardComponent implements OnInit {
   public doctors: Doctor[] = [];
+  private services = [];
+  public dates = [];
+  stadistics = [];
   constructor(public doctorService: DoctorService,
-              public patientService: PatientService) {}
+              public userService: UserService,
+              public patientService: PatientService) {
+                this.services['doctor'] = doctorService;
+                this.services['patient'] = patientService;
+              }
   // area chart start
   public areaChartOptions = {
     responsive: true,
@@ -155,6 +163,21 @@ export class DashboardComponent implements OnInit {
   // end bar chart
   ngOnInit() {
     setTimeout(() => {
+      this.services[this.userService.role].getDatesIds().subscribe(res => {
+        res.forEach(id => {
+          this.services[this.userService.role].getDateById(id).subscribe(date => {
+            console.log(date);
+            this.doctorService.getByAddress(date.doctor).subscribe(doctor => {
+              date.doctor = doctor;
+            });
+            this.patientService.getByAddress(date.patient).subscribe(patient => {
+              date.patient = patient;
+            });
+            date.date = new Date(date.timestamp*1000);
+            this.dates.push(date);
+          });
+        });
+      });
       this.doctorService.list().subscribe(accounts => {
         accounts.forEach(account => {
           this.doctorService.getByAddress(account).subscribe(doctor => {
@@ -164,7 +187,7 @@ export class DashboardComponent implements OnInit {
         });
       });
     }, 2000);
-    
+
   }
 
   setSparkLine(){

@@ -28,7 +28,7 @@
               <div class="float-right">
                 <p class="text-right font-18">Appointments</p>
                 <div class="col-green">
-                  <h3 class="text-right mb-0">650</h3>
+                  <h3 class="text-right mb-0">{{dates.length}}</h3>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
                 <i class="material-icons col-orange">content_cut</i>
               </div>
               <div class="float-right">
-                <p class="text-right font-18">Operations</p>
+                <p class="text-right font-18">Operations (FW)</p>
                 <div class="col-orange">
                   <h3 class="text-right mb-0">54</h3>
                 </div>
@@ -62,7 +62,7 @@
                 <i class="material-icons col-blue">person_add</i>
               </div>
               <div class="float-right">
-                <p class="text-right font-18">New Patients</p>
+                <p class="text-right font-18">New Patients (FW)</p>
                 <div class="col-blue">
                   <h3 class="text-right mb-0">129</h3>
                 </div>
@@ -80,7 +80,7 @@
                 <i class="material-icons col-red">local_activity</i>
               </div>
               <div class="float-right">
-                <p class="text-right font-18">Hospital Earning</p>
+                <p class="text-right font-18">Hospital Earning (FW)</p>
                 <div class="col-red">
                   <h3 class="text-right mb-0">$20,125</h3>
                 </div>
@@ -97,7 +97,7 @@
         <div class="card">
           <div class="header">
             <h2>
-              Hospital Survay</h2>
+              Hospital Survay (FW)</h2>
           </div>
           <div class="body">
             <!-- Canvas for Chart.js -->
@@ -121,7 +121,7 @@
         <div class="card">
           <div class="header">
             <h2>
-              Recent Report</h2>
+              Recent Report (FW)</h2>
           </div>
           <div class="body">
             <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" *ngIf="userService.profile">
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="card">
           <div class="header">
@@ -154,127 +154,19 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Patient Name</th>
-                    <th>Assigned Doctor</th>
+                    <th *ngIf="userService.role=='doctor'">Patient Name</th>
+                    <th *ngIf="userService.role == 'patient'">Assigned Doctor</th>
                     <th>Date</th>
-                    <th>Diseases</th>
-                    <th>Actions </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr *ngFor="let date of dates">
                     <td class="table-img">
-                      <img src="assets/images/user/user1.jpg" alt="">
+                      <img  [src]="userService.role == 'patient'? date.doctor.imageUrl: date.patient.imageUrl" alt="">
                     </td>
-                    <td>John Doe</td>
-                    <td><a href="mailto:test@gmail.com"> Dr.Jacob Ryan </a></td>
-                    <td>12/05/2016 </td>
-                    <td>
-                      <div class="badge col-red">Fever</div>
-                    </td>
-                    <td>
-                      <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-img">
-                      <img src="assets/images/user/user2.jpg" alt="">
-                    </td>
-                    <td>Sarah Smith</td>
-                    <td><a href="mailto:test@gmail.com"> Dr.Rajesh </a></td>
-                    <td>12/05/2016 </td>
-                    <td>
-                      <div class="badge col-green">Cholera</div>
-                    </td>
-                    <td>
-                      <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-img">
-                      <img src="assets/images/user/user3.jpg" alt="">
-                    </td>
-                    <td>Airi Satou</td>
-                    <td><a href="mailto:test@gmail.com"> Dr.Jay Soni </a></td>
-                    <td>12/05/2016 </td>
-                    <td>
-                      <div class="badge col-purple">Jaundice</div>
-                    </td>
-                    <td>
-                      <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-img">
-                      <img src="assets/images/user/user4.jpg" alt="">
-                    </td>
-                    <td>Angelica Ramos</td>
-                    <td><a href="mailto:test@gmail.com"> Dr.John Deo </a></td>
-                    <td>12/05/2016 </td>
-                    <td>
-                      <div class="badge col-brown">Typhod</div>
-                    </td>
-                    <td>
-                      <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-img">
-                      <img src="assets/images/user/user5.jpg" alt="">
-                    </td>
-                    <td>Ashton Cox</td>
-                    <td><a href="mailto:test@gmail.com"> Dr.Megha Trivedi </a></td>
-                    <td>12/05/2016 </td>
-                    <td>
-                      <div class="badge col-orange">Maleria</div>
-                    </td>
-                    <td>
-                      <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-img">
-                      <img src="assets/images/user/user8.jpg" alt="">
-                    </td>
-                    <td>Cara Stevens</td>
-                    <td><a href="mailto:test@gmail.com"> Dr.Sarah Smith </a></td>
-                    <td>12/05/2016 </td>
-                    <td>
-                      <div class="badge col-cyan">Infection</div>
-                    </td>
-                    <td>
-                      <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                      <button mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </td>
+                    <td *ngIf="userService.role=='doctor'">{{date.patient.name}}</td>
+                    <td *ngIf="userService.role == 'patient'"><a [routerLink]="'/doctors/' + date.doctor.address"> Dr. {{date.doctor.name}} </a></td>
+                    <td> {{date.date | date: "longDate"}} </td>
                   </tr>
                 </tbody>
               </table>
@@ -307,7 +199,8 @@
                       {{doctor.name}}
                     </td>
                     <td>
-                      <div class="badge col-green">Available</div>
+                      <div class="badge col-green" *ngIf="doctor.status">Available</div>
+                      <div class="badge col-red" *ngIf="!doctor.status">Unavailable</div>
                     </td>
                   </tr>
                 </tbody>

@@ -24,6 +24,8 @@ import { DoctorsFormComponent } from './doctors-form/doctors-form.component';
 import { DoctorsShowComponent } from './doctors-show/doctors-show.component';
 import { DoctorsProfileComponent } from './doctors-profile/doctors-profile.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     DoctorsListComponent,
@@ -53,7 +55,9 @@ import { SharedModule } from '../shared/shared.module';
     MatCheckboxModule,
     MaterialFileInputModule,
     DoctorsRoutingModule,
-    SharedModule
+    MatSlideToggleModule,
+    SharedModule,
+    MatProgressSpinnerModule
   ]
 })
 export class DoctorsModule {}
