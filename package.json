@@ -97,7 +97,7 @@
     "ngx-material-file-input": "^2.1.0",
     "ngx-perfect-scrollbar": "^9.0.0",
     "ngx-toastr": "^12.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "node-waves": "^0.7.6",
     "npm": "^6.14.0",
     "owl.carousel": "^2.3.4",
